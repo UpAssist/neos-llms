@@ -18,12 +18,12 @@ Works on **both Neos 8 and Neos 9** — pick the constraint that matches your Ne
 | Neos version | Composer constraint     | Branch     |
 | ------------ | ----------------------- | ---------- |
 | Neos 8.x     | `^1.0` or `dev-neos-8`  | `neos-8`   |
-| Neos 9.x     | `^0.3` or `dev-main`    | `main`     |
+| Neos 9.x     | `^2.0` or `dev-main`    | `main`     |
 
 This branch targets **Neos 9**. Only difference from the Neos 8 branch: the route part handler interface namespace is `Neos\Neos\FrontendRouting\` (Neos 8 uses `Neos\Neos\Routing\`). Everything else — mixin, Fusion helper, caching, translations, per-page `llmsTxtDescription` with `metaDescription` fallback — is shared 1:1.
 
 ```bash
-composer require upassist/neos-llms:^0.3
+composer require upassist/neos-llms:^2.0
 ```
 
 Or add a repository to your `composer.json`:
@@ -37,7 +37,7 @@ Or add a repository to your `composer.json`:
         }
     ],
     "require": {
-        "upassist/neos-llms": "^0.3"
+        "upassist/neos-llms": "^2.0"
     }
 }
 ```
