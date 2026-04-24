@@ -1,0 +1,19 @@
+{
+    "description": "llms.txt generator for Neos CMS — AI discoverability via a site-wide mixin and per-page opt-out",
+    "type": "neos-package",
+    "license": "MIT",
+    "require": {
+        "neos/neos": "^9.0"
+    },
+    "name": "upassist/neos-llms",
+    "autoload": {
+        "psr-4": {
+            "UpAssist\\Neos\\Llms\\": "Classes/"
+        }
+    },
+    "extra": {
+        "neos": {
+            "package-key": "UpAssist.Neos.Llms"
+        }
+    }
+}

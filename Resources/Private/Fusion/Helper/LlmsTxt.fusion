@@ -1,0 +1,69 @@
+prototype(UpAssist.Neos.Llms:Helper.LlmsTxt) < prototype(Neos.Fusion:Component) {
+
+    siteName = ${q(site).property('title')}
+    siteDescription = ${q(site).property('llmsTxtDescription') || ''}
+    pagesHeading = 'Pages'
+    linebreak = ${String.chr(10)}
+
+    @private {
+        pages = ${q(site).find('[instanceof Neos.Neos:Document]').filter('[instanceof UpAssist.Neos.Llms:Mixin.LlmsTxt]').get()}
+    }
+
+    renderer = Neos.Fusion:Http.Message {
+        httpResponseHead.headers.Content-Type = 'text/plain; charset=utf-8'
+        body = Neos.Fusion:Component {
+            siteName = ${props.siteName}
+            siteDescription = ${props.siteDescription}
+            pagesHeading = ${props.pagesHeading}
+            linebreak = ${props.linebreak}
+            pages = ${private.pages}
+
+            renderer = Neos.Fusion:Join {
+                # Title
+                title = ${'# ' + props.siteName}
+                titleBreak = ${props.linebreak + props.linebreak}
+
+                # Description (blockquote)
+                description = ${props.siteDescription ? '> ' + String.replace(props.siteDescription, String.chr(10), String.chr(10) + '> ') : ''}
+                descriptionBreak = ${props.siteDescription ? props.linebreak + props.linebreak : ''}
+
+                # Pages section
+                pagesHeading = ${'## ' + props.pagesHeading}
+                pagesHeadingBreak = ${props.linebreak + props.linebreak}
+
+                pages = Neos.Fusion:Loop {
+                    items = ${props.pages}
+                    itemName = 'page'
+                    itemRenderer = Neos.Fusion:Component {
+                        isHidden = ${q(page).property('llmsTxtHidden') || q(page).is('[hidden]')}
+                        isNoIndex = ${q(page).property('metaRobotsNoindex')}
+                        title = ${q(page).property('title')}
+                        description = ${q(page).property('metaDescription')}
+                        linebreak = ${props.linebreak}
+                        uri = Neos.Neos:NodeUri {
+                            node = ${page}
+                            absolute = true
+                            format = 'html'
+                        }
+
+                        renderer = ${props.isHidden || props.isNoIndex ? '' : '- [' + props.title + '](' + props.uri + ')' + (props.description ? ': ' + String.cropAtWord(props.description, 200, '...') : '') + props.linebreak}
+                    }
+                }
+            }
+        }
+    }
+
+    @cache {
+        mode = 'cached'
+        entryIdentifier.identifier = 'llms.txt'
+        entryTags {
+            1 = 'Everything'
+        }
+        maximumLifetime = 3600
+    }
+}
+
+root.llmsTxt {
+    condition = ${request.format == 'txt.llms'}
+    renderer = UpAssist.Neos.Llms:Helper.LlmsTxt
+}

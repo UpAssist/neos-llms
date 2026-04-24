@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file original="" product-name="UpAssist.Neos.Llms" source-language="en" datatype="plaintext"
+        target-language="en">
+    <body>
+      <trans-unit id="groups.llmstxt">
+        <source>AI / LLMs</source>
+        <target>AI / LLMs</target>
+      </trans-unit>
+      <trans-unit id="properties.llmsTxtHidden">
+        <source>Hide from llms.txt</source>
+        <target>Hide from llms.txt</target>
+      </trans-unit>
+      <trans-unit id="properties.llmsTxtDescription">
+        <source>Site description for llms.txt</source>
+        <target>Site description for llms.txt</target>
+      </trans-unit>
+      <trans-unit id="properties.llmsTxtDescription.help">
+        <source>Short paragraph that appears as a blockquote under the site title. Only used on the site/home node.</source>
+        <target>Short paragraph that appears as a blockquote under the site title. Only used on the site/home node.</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

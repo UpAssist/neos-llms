@@ -1,0 +1,115 @@
+# UpAssist.Neos.Llms
+
+Serves `/llms.txt` from your Neos CMS site so AI agents can discover and navigate the site's content.
+
+[`llms.txt`](https://llmstxt.org) is a plain-text index of a site's documents, analogous to `robots.txt` but aimed at LLMs. This package turns the Neos content tree into one, honours `noindex` / hidden flags, and lets editors opt pages out per-node.
+
+## Features
+
+- Renders `/llms.txt` directly from the content tree — no static file to maintain.
+- Auto-excludes nodes with `metaRobotsNoindex`, `_hidden`, or the package's `llmsTxtHidden` flag.
+- Per-site description (editable on the Home node).
+- 1h output cache, invalidated by content changes.
+
+## Installation
+
+Neos 9.x.
+
+```bash
+composer require upassist/neos-llms
+```
+
+Or add a repository to your `composer.json`:
+
+```json
+{
+    "repositories": [
+        {
+            "type": "git",
+            "url": "git@github.com:UpAssist/neos-llms.git"
+        }
+    ],
+    "require": {
+        "upassist/neos-llms": "^1.0"
+    }
+}
+```
+
+## Usage
+
+### 1. Attach the mixin to your Document NodeTypes
+
+Apply the mixin to the Document NodeTypes you want to include in `llms.txt`. The mixin adds:
+
+- `llmsTxtHidden: boolean` — per-page opt-out checkbox under the *AI / LLMs* inspector group.
+- `llmsTxtDescription: string` (TextArea) — only relevant on your site/home node; used as the blockquote under the site title.
+
+```yaml
+'Your.Package:Document.Page':
+  superTypes:
+    'UpAssist.Neos.Llms:Mixin.LlmsTxt': true
+
+'Your.Package:Document.Home':
+  superTypes:
+    'UpAssist.Neos.Llms:Mixin.LlmsTxt': true
+```
+
+### 2. Register the route
+
+The package ships a `Routes.yaml`. Register it in your site package's `Configuration/Settings.yaml` so the `/llms.txt` URL is routed:
+
+```yaml
+Neos:
+  Flow:
+    mvc:
+      routes:
+        'UpAssist.Neos.Llms':
+          position: 'before Neos.Neos'
+```
+
+### 3. Fill the site description
+
+In the Neos backend, open the site/home node, go to the *AI / LLMs* inspector group, and enter a one-paragraph site description. It becomes the `> blockquote` under the site title in `llms.txt`.
+
+## Exclusion rules
+
+A document does **not** appear in `llms.txt` when any of the following is true:
+
+- `llmsTxtHidden: true` (per-page opt-out)
+- `_hidden: true` (Neos "hidden" flag)
+- `metaRobotsNoindex: true` (Neos.Seo noindex)
+
+This means setting a page to `noindex` for search engines also removes it from `llms.txt` — no double bookkeeping.
+
+## Output
+
+```
+# {Site Title}
+
+> {llmsTxtDescription}
+
+## Pages
+
+- [Page Title](https://example.com/page): metaDescription truncated to 200 chars
+- ...
+```
+
+Served with `Content-Type: text/plain; charset=utf-8`. Cached for 1 hour, tagged `Everything` so regular content publishes invalidate it.
+
+## Customising the "Pages" heading
+
+Override the Fusion prototype to change the heading label:
+
+```fusion
+prototype(UpAssist.Neos.Llms:Helper.LlmsTxt) {
+    pagesHeading = 'Documents'
+}
+```
+
+## License
+
+MIT
+
+## Credits
+
+Originally prototyped for [ewijksolartechniek.nl](https://github.com/UpAssist). Extracted into a reusable package to power AI discoverability across the UpAssist portfolio.
