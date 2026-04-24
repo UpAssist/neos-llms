@@ -64,6 +64,7 @@ prototype(UpAssist.Neos.Llms:Helper.LlmsTxt) < prototype(Neos.Fusion:Component) 
 }
 
 root.llmsTxt {
+    @position = 'before format'
     condition = ${request.format == 'txt.llms'}
     renderer = UpAssist.Neos.Llms:Helper.LlmsTxt
 }
