@@ -8,7 +8,7 @@
     '@format':     'txt.llms'
   routeParts:
     'node':
-      handler: 'Neos\Neos\FrontendRouting\FrontendNodeRoutePartHandlerInterface'
+      handler: 'Neos\Neos\Routing\FrontendNodeRoutePartHandlerInterface'
       options:
         onlyMatchSiteNodes: true
   appendExceedingArguments: true

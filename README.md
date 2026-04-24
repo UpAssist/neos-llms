@@ -13,10 +13,17 @@ Serves `/llms.txt` from your Neos CMS site so AI agents can discover and navigat
 
 ## Installation
 
-Neos 9.x.
+Works on **both Neos 8 and Neos 9** — pick the constraint that matches your Neos version:
+
+| Neos version | Composer constraint     | Branch     |
+| ------------ | ----------------------- | ---------- |
+| Neos 8.x     | `^1.0` or `dev-neos-8`  | `neos-8`   |
+| Neos 9.x     | `^0.3` or `dev-main`    | `main`     |
+
+This branch targets **Neos 8**. Only difference from the Neos 9 branch: the route part handler interface namespace is `Neos\Neos\Routing\` (Neos 9 moved it to `Neos\Neos\FrontendRouting\`). Everything else — mixin, Fusion helper, caching, translations — is shared.
 
 ```bash
-composer require upassist/neos-llms
+composer require upassist/neos-llms:^1.0
 ```
 
 Or add a repository to your `composer.json`:
