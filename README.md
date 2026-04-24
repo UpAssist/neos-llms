@@ -121,7 +121,3 @@ prototype(UpAssist.Neos.Llms:Helper.LlmsTxt) {
 ## License
 
 MIT
-
-## Credits
-
-Originally prototyped for [ewijksolartechniek.nl](https://github.com/UpAssist). Extracted into a reusable package to power AI discoverability across the UpAssist portfolio.
