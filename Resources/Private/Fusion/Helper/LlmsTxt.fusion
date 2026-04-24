@@ -46,7 +46,7 @@ prototype(UpAssist.Neos.Llms:Helper.LlmsTxt) < prototype(Neos.Fusion:Component) 
                             format = 'html'
                         }
 
-                        renderer = ${props.isHidden || props.isNoIndex ? '' : '- [' + props.title + '](' + props.uri + ')' + (props.description ? ': ' + String.cropAtWord(props.description, 200, '...') : '') + props.linebreak}
+                        renderer = ${props.isHidden || props.isNoIndex ? '' : '- [' + props.title + '](' + props.uri + ')' + (props.description ? ': ' + props.description : '') + props.linebreak}
                     }
                 }
             }
