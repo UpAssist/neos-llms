@@ -67,9 +67,14 @@ Neos:
           position: 'before Neos.Neos'
 ```
 
-### 3. Fill the site description
+### 3. Fill the descriptions
 
-In the Neos backend, open the site/home node, go to the *AI / LLMs* inspector group, and enter a one-paragraph site description. It becomes the `> blockquote` under the site title in `llms.txt`.
+In the Neos backend, every document with the mixin exposes an *AI / LLMs* inspector group with a `llmsTxtDescription` textarea:
+
+- **On the site/home node**, it becomes the `> blockquote` under the site title.
+- **On other pages**, it becomes the per-page entry after the page title. If empty, the page entry falls back to `metaDescription`.
+
+Prefer filling `llmsTxtDescription` per page when you want an AI-facing summary that differs from the SEO meta description (e.g. more factual, less marketing).
 
 ## Exclusion rules
 

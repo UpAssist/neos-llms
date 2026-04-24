@@ -38,7 +38,7 @@ prototype(UpAssist.Neos.Llms:Helper.LlmsTxt) < prototype(Neos.Fusion:Component) 
                         isHidden = ${q(page).property('llmsTxtHidden') || q(page).is('[hidden]')}
                         isNoIndex = ${q(page).property('metaRobotsNoindex')}
                         title = ${q(page).property('title')}
-                        description = ${q(page).property('metaDescription')}
+                        description = ${q(page).property('llmsTxtDescription') || q(page).property('metaDescription')}
                         linebreak = ${props.linebreak}
                         uri = Neos.Neos:NodeUri {
                             node = ${page}
