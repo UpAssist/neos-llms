@@ -15,8 +15,8 @@
         <target>Beschreibung der Seite in llms.txt</target>
       </trans-unit>
       <trans-unit id="properties.llmsTxtDescription.ui.help.message">
-        <source>Short paragraph that appears as a blockquote under the site title. Only used on the site/home node.</source>
-        <target>Kurzer Absatz, der als Blockzitat unter dem Titel der Website erscheint. Wird nur auf der Startseite verwendet.</target>
+        <source>On the site/home node: short paragraph shown as a blockquote under the site title. On other pages: shown as that page's description in the llms.txt file list.</source>
+        <target>Auf der Site-/Startseiten-Node: kurzer Absatz, der als Blockzitat unter dem Titel der Website erscheint. Auf anderen Seiten: erscheint als Beschreibung dieser Seite in der Dateiliste von llms.txt.</target>
       </trans-unit>
     </body>
   </file>
