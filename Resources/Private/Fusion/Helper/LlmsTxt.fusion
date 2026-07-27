@@ -6,7 +6,7 @@ prototype(UpAssist.Neos.Llms:Helper.LlmsTxt) < prototype(Neos.Fusion:Component) 
     linebreak = ${String.chr(10)}
 
     @private {
-        pages = ${q(site).find('[instanceof Neos.Neos:Document]').filter('[instanceof UpAssist.Neos.Llms:Mixin.LlmsTxt]').get()}
+        pages = ${q(site).find('[instanceof UpAssist.Neos.Llms:Mixin.LlmsTxt]').filter('[instanceof Neos.Neos:Document]').get()}
     }
 
     renderer = Neos.Fusion:Http.Message {
@@ -57,7 +57,8 @@ prototype(UpAssist.Neos.Llms:Helper.LlmsTxt) < prototype(Neos.Fusion:Component) 
         mode = 'cached'
         entryIdentifier.identifier = 'llms.txt'
         entryTags {
-            1 = 'Everything'
+            site = ${Neos.Caching.nodeTag(site)}
+            relevantPages = ${Neos.Caching.nodeTypeTag('UpAssist.Neos.Llms:Mixin.LlmsTxt', site)}
         }
         maximumLifetime = 3600
     }
