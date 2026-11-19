@@ -13,14 +13,15 @@ Serves `/llms.txt` from your Neos CMS site so AI agents can discover and navigat
 
 ## Installation
 
-Works on **both Neos 8 and Neos 9** — pick the constraint that matches your Neos version (tested on Neos 8.3, 8.4, 9.0, 9.1 and 9.2):
+Works on **both Neos 8 and Neos 9**, one major version per Neos line:
 
-| Neos version | Composer constraint     | Branch     |
-| ------------ | ----------------------- | ---------- |
-| Neos 8.3+    | `^1.0` or `dev-neos-8`  | `neos-8`   |
-| Neos 9.x     | `^2.0` or `dev-main`    | `main`     |
+| Package version | Branch | Neos (tested)       | Composer constraint            |
+| --------------- | ------ | ------------------- | ------------------------------ |
+| 2.x             | `main` | 9.0, 9.1, 9.2       | `^2.0` (development: `dev-main`) |
+| 1.x             | `1.x`  | 8.3, 8.4            | `^1.0` (development: `1.x-dev`)  |
+| 0.x             | –      | 9.x, superseded by 2.x | –                           |
 
-This branch targets **Neos 8**. Only difference from the Neos 9 branch: the route part handler interface namespace is `Neos\Neos\Routing\` (Neos 9 moved it to `Neos\Neos\FrontendRouting\`). Everything else — mixin, Fusion helper, caching, translations — is shared.
+This branch targets **Neos 8**. Differences from the `main` (Neos 9) branch are in `Configuration/Routes.yaml` only: the route part handler interface namespace is `Neos\Neos\Routing\` (Neos 9 moved it to `Neos\Neos\FrontendRouting\`), and Neos 9 needs `uriPathSuffix: ''` on the route. Everything else — mixin, Fusion helper, caching, translations — is shared.
 
 ```bash
 composer require upassist/neos-llms:^1.0
