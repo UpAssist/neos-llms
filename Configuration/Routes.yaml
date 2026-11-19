@@ -11,4 +11,6 @@
       handler: 'Neos\Neos\FrontendRouting\FrontendNodeRoutePartHandlerInterface'
       options:
         onlyMatchSiteNodes: true
+        # The site's own uriPathSuffix (e.g. '.html') must not apply to llms.txt
+        uriPathSuffix: ''
   appendExceedingArguments: true
