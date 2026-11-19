@@ -7,18 +7,18 @@ Serves `/llms.txt` from your Neos CMS site so AI agents can discover and navigat
 ## Features
 
 - Renders `/llms.txt` directly from the content tree — no static file to maintain.
-- Auto-excludes nodes with `metaRobotsNoindex`, `_hidden`, or the package's `llmsTxtHidden` flag.
+- Auto-excludes documents that are hidden in Neos, set to `metaRobotsNoindex`, or opted out with the package's `llmsTxtHidden` flag.
 - Per-site description (editable on the Home node).
 - 1h output cache, invalidated by content changes.
 
 ## Installation
 
-Works on **both Neos 8 and Neos 9** — pick the constraint that matches your Neos version:
+Works on **both Neos 8 and Neos 9** — pick the constraint that matches your Neos version (tested on Neos 8.3, 8.4, 9.0, 9.1 and 9.2):
 
 | Neos version | Composer constraint     | Branch     |
 | ------------ | ----------------------- | ---------- |
-| Neos 8.x     | `^1.0` or `dev-neos-8`  | `neos-8`   |
-| Neos 9.x     | `^0.3` or `dev-main`    | `main`     |
+| Neos 8.3+    | `^1.0` or `dev-neos-8`  | `neos-8`   |
+| Neos 9.x     | `^2.0` or `dev-main`    | `main`     |
 
 This branch targets **Neos 8**. Only difference from the Neos 9 branch: the route part handler interface namespace is `Neos\Neos\Routing\` (Neos 9 moved it to `Neos\Neos\FrontendRouting\`). Everything else — mixin, Fusion helper, caching, translations — is shared.
 
@@ -49,7 +49,7 @@ Or add a repository to your `composer.json`:
 Apply the mixin to the Document NodeTypes you want to include in `llms.txt`. The mixin adds:
 
 - `llmsTxtHidden: boolean` — per-page opt-out checkbox under the *AI / LLMs* inspector group.
-- `llmsTxtDescription: string` (TextArea) — only relevant on your site/home node; used as the blockquote under the site title.
+- `llmsTxtDescription: string` (TextArea) — on the site/home node the blockquote under the site title, on other pages the description of the page entry (see step 3).
 
 ```yaml
 'Your.Package:Document.Page':
@@ -88,7 +88,7 @@ Prefer filling `llmsTxtDescription` per page when you want an AI-facing summary 
 A document does **not** appear in `llms.txt` when any of the following is true:
 
 - `llmsTxtHidden: true` (per-page opt-out)
-- `_hidden: true` (Neos "hidden" flag)
+- the document is hidden in Neos ("Hide" in the backend)
 - `metaRobotsNoindex: true` (Neos.Seo noindex)
 
 This means setting a page to `noindex` for search engines also removes it from `llms.txt` — no double bookkeeping.
@@ -102,11 +102,11 @@ This means setting a page to `noindex` for search engines also removes it from `
 
 ## Pages
 
-- [Page Title](https://example.com/page): metaDescription truncated to 200 chars
+- [Page Title](https://example.com/page): {llmsTxtDescription, or metaDescription as fallback}
 - ...
 ```
 
-Served with `Content-Type: text/plain; charset=utf-8`. Cached for 1 hour, tagged `Everything` so regular content publishes invalidate it.
+Served with `Content-Type: text/plain; charset=utf-8`. Cached for up to 1 hour; the entry is flushed when the site node or any document with the mixin changes.
 
 ## Customising the "Pages" heading
 

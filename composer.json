@@ -3,14 +3,9 @@
     "type": "neos-package",
     "license": "MIT",
     "require": {
-        "neos/neos": "^8.0"
+        "neos/neos": "^8.3"
     },
     "name": "upassist/neos-llms",
-    "autoload": {
-        "psr-4": {
-            "UpAssist\\Neos\\Llms\\": "Classes/"
-        }
-    },
     "extra": {
         "neos": {
             "package-key": "UpAssist.Neos.Llms"
