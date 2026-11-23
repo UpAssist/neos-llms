@@ -2,7 +2,11 @@
 
 All notable changes to this project are documented in this file. The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/).
 
-## [Unreleased]
+## [1.2.2] - 2026-11-23
+
+### Fixed
+
+- `llms.txt` was cached once for all content dimensions: whichever dimension was requested first (e.g. `/de/llms.txt`) was then served for every other dimension, including the default `/llms.txt`. The cache entry now includes the site node (and so its dimension and workspace).
 
 ### Changed
 
