@@ -56,6 +56,8 @@ prototype(UpAssist.Neos.Llms:Helper.LlmsTxt) < prototype(Neos.Fusion:Component) 
     @cache {
         mode = 'cached'
         entryIdentifier.identifier = 'llms.txt'
+        # One entry per site node, dimension and workspace
+        entryIdentifier.site = ${Neos.Caching.entryIdentifierForNode(site)}
         entryTags {
             site = ${Neos.Caching.nodeTag(site)}
             relevantPages = ${Neos.Caching.nodeTypeTag('UpAssist.Neos.Llms:Mixin.LlmsTxt', site)}
